@@ -50,7 +50,7 @@ class Templatebff606f2cf extends Latte\Runtime\Template
 ?>
 
 <?php
-		if ($user->isInRole('Palpatine') || $user->getId() === $jedi->JEDI_ID) {
+		if ($user->isInRole('Palpatine')) {
 			?>		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Jedi:edit", [$jedi->JEDI_ID])) ?>">Upravit profil</a>
 		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Jedi:delete", [$jedi->JEDI_ID])) ?>">Smazat profil</a>
 <?php

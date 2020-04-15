@@ -89,6 +89,41 @@ final class JediPresenter extends BasePresenter
     }    
 
     /*
+     * Vytvoří komponentu pro vyhledání Jedi
+     */
+    protected function createComponentSearchForm()
+    {
+        $form = new Form;
+
+        $form->addText('jedi', 'Vyhledat Jedi podle ID:');
+
+        $form->addSubmit('odeslat', 'Vyhledat');
+
+        $form->onSuccess[] = [$this, 'searchFormSucceeded'];
+
+        return $form;
+    }
+
+    /*
+     * Pokusí se vyhledat Jedi podle zadaného ID
+     */
+    public function searchFormSucceeded($form, $values)
+    {
+        $values = $form->getValues();
+
+        $jedi = $this->database->fetch('SELECT jedi_id FROM Jedi WHERE jedi_id = ?', $values->jedi);
+
+        if(!$jedi)
+        {
+            $this->flashMessage('Jedi nenalezen', 'error');
+        }
+        else
+        {
+            $this->redirect('Jedi:show', $values->jedi);
+        }
+    }
+
+    /*
      * Formulář pro registraci nebo úpravu Jedi
      */
     protected function createComponentRegisterForm()

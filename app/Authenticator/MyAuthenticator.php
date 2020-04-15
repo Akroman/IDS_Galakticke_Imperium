@@ -21,6 +21,9 @@ class MyAuthenticator implements IAuthenticator
 		$this->passwords = $passwords;
 	}
 
+	/*
+	 * Ověří zadaný username a heslo a vrátí identitu uživatele obsahující jeho ID, roli, username a cele jmeno
+	 */
 	public function authenticate(array $credentials): Nette\Security\IIdentity
 	{
 		[$username, $password] = $credentials;

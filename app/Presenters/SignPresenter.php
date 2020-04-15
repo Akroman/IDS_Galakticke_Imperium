@@ -24,6 +24,9 @@ final class SignPresenter extends BasePresenter
         $this->authenticator = new MyAuthenticator($this->database, $this->passwords);
     }
 
+    /*
+     * Vytvoří přihlašovací formulář
+     */
     protected function createComponentSignInForm()
     {
         $form = new Form;
@@ -41,6 +44,9 @@ final class SignPresenter extends BasePresenter
         return $form;
     }
 
+    /*
+     * Pokusí se přihlásit uživatele pomocí vytvořeného authenticatoru
+     */
     public function signInFormSucceeded($form, $values)
     {
         $values = $form->getValues();
@@ -58,10 +64,16 @@ final class SignPresenter extends BasePresenter
         }
     }
 
+    /*
+     * Odhlásí uživatele
+     */
     public function actionOut(): void
     {
-        $this->getUser()->logout();
-        $this->flashMessage('Byl jste odhlášen.', 'success');
-        $this->redirect('Homepage:');
+        if($this->getUser()->isLoggedIn())
+        {
+            $this->getUser()->logout();
+            $this->flashMessage('Byl jste odhlášen.', 'success');
+            $this->redirect('Homepage:');
+        }
     }
 }

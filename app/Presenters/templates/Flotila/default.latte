@@ -1,0 +1,28 @@
+{block content}
+<div class="botnav">
+    {if $user->isInRole('Palpatine')}
+        <a n:href="Flotila:register">Přidat novou flotilu</a>
+        <a n:href="Lode:register">Vytvořit novou loď</a>
+    {/if}
+</div>
+<table class="info">
+    <tr>
+        <th>ID</th>
+        <th>Název</th>
+        <th>Velitel</th>
+        <th>Počet členů flotily</th>
+    </tr>
+    {foreach $flotily as $flotila}
+        <tr>
+            <td>{$flotila->FLOTILA_ID}</td>
+            <td>{$flotila->NAZEV}</td>
+            <td>{$flotila->JMENO} {$flotila->PRIJMENI}</td>
+            <td>{$flotila->POCET_CLENU}</td>
+            <td><a style="color:#FFF" n:href="show $flotila->FLOTILA_ID">Detail flotily</a></td>
+            {if $user->isInRole('Palpatine')}
+                <td><a style="color:#FFF" n:href="edit $flotila->FLOTILA_ID">Editovat flotilu</a></td>
+                <td><a style="color:#FFF" n:href="delete $flotila->FLOTILA_ID">Vymazat flotilu</a></td>
+            {/if}
+            <td><a style="color:#FFF" n:href="Lode: $flotila->FLOTILA_ID">Zobrazit lodě flotily</a></td>
+        </tr>
+    {/foreach}

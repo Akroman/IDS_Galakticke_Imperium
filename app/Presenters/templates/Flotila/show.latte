@@ -1,0 +1,62 @@
+{block content}
+
+<h1 n:block=title>Flotila {$flotila->NAZEV}</h1>
+
+<div class="botnav">
+	<a n:href="Lode: $flotila->FLOTILA_ID">Zobrazit lodě flotily</a>
+	{if $user->isInRole('Palpatine')}
+        <a n:href="Flotila:register">Přidat novou flotilu</a>
+		<a n:href="Flotila:delete $flotila->FLOTILA_ID">Vymazat flotilu</a>
+	{/if}
+	{if $user->isInRole('Palpatine') || $user->getId() == $flotila->VELITEL}
+		<a n:href="edit $flotila->FLOTILA_ID">Editovat flotilu</a>
+        <a n:href="Lode:register $flotila->VELITEL, $flotila->FLOTILA_ID">Přidat loď do flotily</a>
+    {/if}
+</div>
+<table class="show">
+<tbody>
+<tr>
+	<th><label>ID flotily:</label></th>
+
+	<td><label>{$flotila->FLOTILA_ID}</label></td>
+</tr>
+
+<tr>
+	<th><label>Název flotily:</label></th>
+
+	<td><label>{$flotila->NAZEV}</label></td>
+</tr>
+
+<tr>
+	<th><label>Velitel flotily:</label></th>
+
+	<td><label>{$flotila->JMENO}</label></td>
+</tr>
+
+<tr>
+    {if $planeta}
+        <th><label>Flotila se nachází na orbitu planety:</label></th>
+
+        <td><label>{$planeta->NAZEV}</label></td>
+    {else}
+        <th><label>Flotila se nenachází na orbitu žádné planety</label></th>
+    {/if}
+</tr>
+
+<tr>
+	<th><label>Počet členů flotily:</label></th>
+
+	<td><label>{$flotila->POCET_CLENU}</label></td>
+</tr>
+
+<tr>
+	<th><label>Počet lodí ve flotile:</label></th>
+
+	<td><label>{$lode->POCET_LODI}</label></td>
+</tr>
+
+<tr>
+	<th><label>Počet jedi ve flotile:</label></th>
+
+	<td><label>{$pocet_jedi->POCET_JEDI}</label></td>
+</tr>

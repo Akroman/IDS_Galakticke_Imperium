@@ -1,0 +1,11 @@
+{block content}
+<div class="botnav">
+    {if $user->isInRole('Palpatine')}<a n:href="PlanetarniSystem:register">Evidovat nový planetární systém</a>{/if}
+</div>
+<table class="info">
+<tr>
+	<th>ID</th>
+	<th>Název</th>
+    <th>Datum narození</th>
+    <th>Rasa</th>
+</tr>

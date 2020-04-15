@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="{$basePath}/IDS.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" type="image/x-icon" href="{$basePath}/star-wars-png-icons-1.png" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<title>Galaktické impérium</title>
+</head>
+
+<body>
+	<div id="flash" n:foreach="$flashes as $flash" n:class="'alert-' . $flash->type">
+		{$flash->message}<button class="flashButton" aria-label="Close Account Info Modal Box">
+		{if $flash->type === 'error'}&#x274C;{elseif $flash->type === 'success'}&#x274E;{/if}</button>
+	</div>
+	<div class="topnav">
+	<a n:href="Homepage:">Hlavní strana</a>
+	{if $user->loggedIn}
+		<a n:href="Jedi:">Jedi</a>
+		<a n:href="Flotila:">Flotily</a>
+		<a n:href="PlanetarniSystem:">Planetární systémy</a>
+		<a style="float:right" n:href="Sign:out">Odhlásit se</a>
+		<label style="float:right">Přihlášen jako: {$user->getIdentity()->name}</label>
+	{else}
+		<a n:href="Sign:">Přihlásit se</a>
+	{/if}
+	</div>
+	{include content}
+
+	{block scripts}
+	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	{/block}
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".flashButton").click(function() {
+				$("#flash").fadeOut();
+			});
+		});
+	</script>
+</body>
+</html>

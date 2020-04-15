@@ -1,0 +1,34 @@
+{block content}
+<div class="botnav">
+    {if $user->isInRole('Palpatine') || $user->getId() == $velitel->VELITEL}
+        <a n:href="Lode:register $velitel->VELITEL, $flotila_id">Přidat novou loď</a>
+    {/if}
+</div>
+<h1>{$velitel->NAZEV}</h1>
+<table class="info">
+    <tr>
+        <th>ID</th>
+        <th>Typ</th>
+        <th>Planeta výroby</th>
+        <th>Stav štítů</th>
+        <th>Stav motorů</th>
+        <th>Míra poškození</th>
+        <th>Počet turetů</th>
+        <th>Kapacita</th>
+    </tr>
+    {foreach $lode as $lod}
+        <tr>
+            <td>{$lod->LOD_ID}</td>
+            <td>{if $lod->TYP}{$lod->TYP}{else}-{/if}</td>
+            <td>{$lod->NAZEV}</td>
+            <td>{if $lod->STITY}{$lod->STITY}{else}-{/if}</td>
+            <td>{if $lod->STAV_MOTORU}{$lod->STAV_MOTORU}{else}-{/if}</td>
+            <td>{if $lod->POSKOZENI}{$lod->POSKOZENI}{else}-{/if}</td>
+            <td>{if $lod->TURETY}{$lod->TURETY}{else}-{/if}</td>
+            <td>{if $lod->KAPACITA}{$lod->KAPACITA}{else}-{/if}</td>
+            {if $user->isInRole('Palpatine') || $user->getId() === $velitel->VELITEL}
+                <td><a style="color:#FFF" n:href="edit $lod->LOD_ID, $velitel->VELITEL, $flotila_id">Editovat loď</a></td>
+                <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat loď?');" n:href="delete $lod->LOD_ID, $velitel->VELITEL, $flotila_id">Vymazat loď</a></td>
+            {/if}
+        </tr>
+    {/foreach}

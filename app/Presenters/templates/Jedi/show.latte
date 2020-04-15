@@ -1,0 +1,81 @@
+{block content}
+
+<h1 n:block=title>Profil Jedi {$jedi->JMENO} {$jedi->PRIJMENI}</h1>
+
+<div class="botnav">
+	{if $user->isInRole('Palpatine')}<a n:href="Jedi:register">Zaregistrovat nového Jedi</a>{/if}
+	{if $user->isInRole('Palpatine') || $user->getId() === $jedi->JEDI_ID}
+		<a n:href="Jedi:edit $jedi->JEDI_ID">Upravit profil</a>
+		<a n:href="Jedi:delete $jedi->JEDI_ID">Smazat profil</a>
+	{/if}
+</div>
+
+<table class="show">
+<tbody>
+<tr>
+	<th><label>ID Jedi:</label></th>
+
+	<td><label>{$jedi->JEDI_ID}</label></td>
+</tr>
+
+<tr>
+	<th><label>Jméno:</label></th>
+
+	<td><label>{$jedi->JMENO}</label></td>
+</tr>
+
+<tr>
+	<th><label>Příjmení:</label></th>
+
+	<td><label>{$jedi->PRIJMENI}</label></td>
+</tr>
+
+<tr>
+	<th><label>Planeta původu:</label></th>
+
+	<td><label>{$planeta->NAZEV}</label></td>
+</tr>
+
+<tr>
+	<th><label>Flotila:</label></th>
+
+	<td><label>{$flotila->NAZEV}</label></td>
+</tr>
+
+<tr>
+	<th><label>Rasa:</label></th>
+
+	<td><label>{$jedi->RASA}</label></td>
+</tr>
+
+<tr>
+	<th><label>Množství midichlorianů:</label></th>
+
+	<td><label>{$jedi->MNOZSTVI_CHLORIANU}</label></td>
+</tr>
+
+<tr>
+	<th><label>Barva meče:</label></th>
+
+	<td><label>{$jedi->BARVA_MECE}</label></td>
+</tr>
+
+<tr>
+	<th><label>Datum narození:</label></label></th>
+
+	<td><label>{$narozeni->NAROZENI}</label></td>
+</tr>
+
+<tr>
+	<th><label>Jedi je padawanem:</label></th>
+
+	<td><label>{if $jedi->JE_PADAWAN === 1}Ano{else}Ne{/if}</label></td>
+</tr>
+
+<tr>
+	<th><label>Oprávnění Jedi:</label></th>
+
+	<td><label>{$jedi->OPRAVNENI}</label></td>
+</tr>
+
+</tbody></table>

@@ -1,0 +1,27 @@
+{block content}
+<div class="botnav">
+    {if $user->isInRole('Palpatine')}<a n:href="Jedi:register">Zaregistrovat nového Jedi</a>{/if}
+</div>
+    <table class="info">
+    <tr>
+        <th>ID</th>
+        <th>Celé jméno</th>
+        <th>Datum narození</th>
+        <th>Rasa</th>
+    </tr>
+    {snippet Jedi}
+        {foreach $requests as $request}
+            <tr>
+                <td>{$request->JEDI_ID}</td>
+                <td>{$request->JMENO} {$request->PRIJMENI}</td>
+                <td>{$request->NAROZENI}</td>
+                <td>{$request->RASA}</td>
+                <td><a style="color:#FFF" n:href="show $request->JEDI_ID">Zobrazit profil</a></td>
+                {if $user->isInRole('Palpatine')}
+                    <td><a style="color:#FFF" n:href="edit $request->JEDI_ID">Editovat profil</a></td>
+                    <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat profil?');" n:href="delete $request->JEDI_ID">Smazat profil</a></td>
+                {/if}
+            </tr>
+        {/foreach}
+    {/snippet Jedi}
+</table>

@@ -1,0 +1,1 @@
+[2020-04-11 17-43-29] ArgumentCountError: Too few arguments to function App\Presenters\HomepagePresenter::startup(), 0 passed in D:\PHP\IDS\vendor\nette\application\src\Application\UI\Presenter.php on line 207 and exactly 1 expected in D:\PHP\IDS\app\Presenters\HomepagePresenter.php:11  @  http://ids/  @@  exception--2020-04-11--17-43--522a3130b4.html

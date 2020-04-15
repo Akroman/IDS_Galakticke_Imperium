@@ -1,0 +1,7 @@
+parameters:
+
+
+database:
+	dsn: 'oci:dbname=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=gort.fit.vutbr.cz)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orclpdb)))'
+	user: xhlavk08
+	password: WtHfK60s

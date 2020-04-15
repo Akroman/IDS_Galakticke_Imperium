@@ -114,7 +114,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 			}
 ?></td>
 <?php
-			if ($user->isInRole('Palpatine') || $user->getId() === $velitel->VELITEL) {
+			if ($user->isInRole('Palpatine') || $user->getId() == $velitel->VELITEL) {
 				?>                <td><a style="color:#FFF" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("edit", [$lod->LOD_ID, $velitel->VELITEL, $flotila_id])) ?>">Editovat loď</a></td>
                 <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat loď?');" href="<?php
 				echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("delete", [$lod->LOD_ID, $velitel->VELITEL, $flotila_id])) ?>">Vymazat loď</a></td>

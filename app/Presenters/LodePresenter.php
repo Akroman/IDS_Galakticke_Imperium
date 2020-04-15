@@ -14,6 +14,9 @@ final class LodePresenter extends BasePresenter
         parent::__construct($database);
     }
 
+    /*
+     * Vykreslení hlavní strany s loděmi
+     */
     public function renderDefault($flotila_id)
     {
         $lode = $this->database->query('SELECT lod.lod_id AS LOD_ID, lod.typ AS TYP, planeta.nazev AS NAZEV, lod.poskozeni AS POSKOZENI,
@@ -28,6 +31,9 @@ final class LodePresenter extends BasePresenter
         $this->template->flotila_id = $flotila_id;
     }
 
+    /*
+     * Formulář pro vytvoření nové lodě
+     */
     protected function createComponentRegisterForm()
     {
         $form = new Form;
@@ -78,6 +84,9 @@ final class LodePresenter extends BasePresenter
         return $form;
     }
 
+    /*
+     * Callback při submitu register formu, vloží zadaná data do databáze
+     */
     public function registerFormSucceeded($form, $values)
     {
           $values = $form->getValues();
@@ -122,6 +131,10 @@ final class LodePresenter extends BasePresenter
           }
     }
 
+    /* 
+     * Zkontroluje, zda je uživatel v roli Palpatine nebo je velitel flotily
+     * pokud přidáváme loď přímo ve flotile, tak vloží flotilu do formu
+     */
     public function actionRegister($velitel_id = NULL, $flotila_id = NULL)
     {
          if($velitel_id)
@@ -134,6 +147,9 @@ final class LodePresenter extends BasePresenter
          }
     }
 
+    /*
+     * Zkontroluje, zda je uživatel v roli Palpatine nebo je velitel flotily a vloží do formu hodnoty z databáze
+     */
     public function actionEdit($lod_id, $velitel_id = NULL, $flotila_id = NULL)
     {
           if($velitel_id)
@@ -163,6 +179,9 @@ final class LodePresenter extends BasePresenter
           $this['registerForm']['lod_id']->setDisabled()->setOmitted(false)->setDefaultValue($lod_id);
     }
 
+    /*
+     * Odstraní loď z databáze
+     */
     public function actionDelete($lod_id, $velitel_id, $flotila_id)
     {
           $this->checkUserRoleAndId($velitel_id);

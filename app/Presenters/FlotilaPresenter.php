@@ -14,6 +14,9 @@ final class FlotilaPresenter extends BasePresenter
         parent::__construct($database);
     }
 
+    /*
+     * Vykreslení hlavní strany s flotilami
+     */
     public function renderDefault()
     {
         $flotily = $this->database->query('SELECT flotila.flotila_id AS FLOTILA_ID, flotila.nazev AS NAZEV,
@@ -23,6 +26,9 @@ final class FlotilaPresenter extends BasePresenter
         $this->template->flotily = $flotily;
     }
 
+    /*
+     * Zobrazení informací o dané flotile
+     */
     public function renderShow($flotila_id)
     {
         $flotila = $this->database->fetch('SELECT flotila.flotila_id AS FLOTILA_ID, flotila.nazev AS NAZEV,
@@ -44,12 +50,18 @@ final class FlotilaPresenter extends BasePresenter
         $this->template->pocet_jedi = $pocet_jedi;
     }
 
+    /*
+     * Zobrazení formuláře pro odstranění flotily
+     */
     public function renderDelete($flotila_id)
     {
         $nazev = $this->database->fetch('SELECT nazev FROM Flotila WHERE flotila_id = ?', $flotila_id);
         $this->template->nazev = $nazev->NAZEV;
     }
 
+    /*
+     * Formulář pro vytvoření nové flotily
+     */
     protected function createComponentRegisterForm()
     {
         $form = new Form;
@@ -80,6 +92,9 @@ final class FlotilaPresenter extends BasePresenter
         return $form;
     }
 
+    /*
+     * Callback při submitu register formu, vloží zadaná data do databáze
+     */
     public function registerFormSucceeded($form, $values)
     {
         $values = $form->getValues();
@@ -126,6 +141,9 @@ final class FlotilaPresenter extends BasePresenter
         }
     }
 
+    /*
+     * Formulář pro odstranění flotily, stará se o přesun lodí z flotily
+     */
     protected function createComponentDeleteForm()
     {
         $form = new Form;
@@ -142,6 +160,9 @@ final class FlotilaPresenter extends BasePresenter
         return $form;
     }
 
+    /*
+     * Callback při submitu delete formu, odstraní flotilu z databáze a přesune její lodě do zvolené flotily
+     */
     public function deleteFormSucceeded($form, $values)
     {
         $values = $form->getValues();
@@ -168,6 +189,9 @@ final class FlotilaPresenter extends BasePresenter
         $this->checkUserRole();
     }
 
+    /*
+     * Při editaci flotily vloží do formu hodnoty z databáze
+     */
     public function actionEdit($flotila_id)
     {
         $this->checkUserRoleAndId($this->getVelitelId($flotila_id));
@@ -197,6 +221,9 @@ final class FlotilaPresenter extends BasePresenter
         $this['registerForm']['flotila_id']->setDisabled()->setOmitted(false)->setValue($flotila->FLOTILA_ID);
     }
 
+    /*
+     * Nastaví v delete formu skrytou hodnotu id flotily
+     */
     public function actionDelete($flotila_id)
     {
         $this->checkUserRole();

@@ -26,7 +26,7 @@
             <td>{if $lod->POSKOZENI}{$lod->POSKOZENI}{else}-{/if}</td>
             <td>{if $lod->TURETY}{$lod->TURETY}{else}-{/if}</td>
             <td>{if $lod->KAPACITA}{$lod->KAPACITA}{else}-{/if}</td>
-            {if $user->isInRole('Palpatine') || $user->getId() === $velitel->VELITEL}
+            {if $user->isInRole('Palpatine') || $user->getId() == $velitel->VELITEL}
                 <td><a style="color:#FFF" n:href="edit $lod->LOD_ID, $velitel->VELITEL, $flotila_id">Editovat loď</a></td>
                 <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat loď?');" n:href="delete $lod->LOD_ID, $velitel->VELITEL, $flotila_id">Vymazat loď</a></td>
             {/if}

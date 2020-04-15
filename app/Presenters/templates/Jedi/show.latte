@@ -4,7 +4,7 @@
 
 <div class="botnav">
 	{if $user->isInRole('Palpatine')}<a n:href="Jedi:register">Zaregistrovat nového Jedi</a>{/if}
-	{if $user->isInRole('Palpatine') || $user->getId() === $jedi->JEDI_ID}
+	{if $user->isInRole('Palpatine')}
 		<a n:href="Jedi:edit $jedi->JEDI_ID">Upravit profil</a>
 		<a n:href="Jedi:delete $jedi->JEDI_ID">Smazat profil</a>
 	{/if}

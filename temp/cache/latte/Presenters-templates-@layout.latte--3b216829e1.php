@@ -59,7 +59,8 @@ class Template3b216829e1 extends Latte\Runtime\Template
 		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Flotila:")) ?>">Flotily</a>
 		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("PlanetarniSystem:")) ?>">Planetární systémy</a>
 		<a style="float:right" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Sign:out")) ?>">Odhlásit se</a>
-		<label style="float:right">Přihlášen jako: <?php echo LR\Filters::escapeHtmlText($user->getIdentity()->name) /* line 27 */ ?></label>
+		<a style="float:right" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Jedi:edit", [$user->getId()])) ?>">Editovat profil</a>
+		<label style="float:right">Přihlášen jako: <?php echo LR\Filters::escapeHtmlText($user->getIdentity()->name) /* line 28 */ ?></label>
 <?php
 		}
 		else {

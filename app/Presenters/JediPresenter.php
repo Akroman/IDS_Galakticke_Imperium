@@ -13,6 +13,9 @@ final class JediPresenter extends BasePresenter
 {
     private $passwords;
 
+    /*
+     * Pole pro výběr rasy
+     */
     const RASY = [
         '' => '- Zvolte rasu -',
         'Nautolan' => 'Nautolan',
@@ -23,6 +26,9 @@ final class JediPresenter extends BasePresenter
         'Mirialan' => 'Mirialan'
     ];
 
+    /*
+     * Pole pro výběr barvy mečů
+     */
     const BARVY_MECU = [
         '' => '- Vyberte barvu meče -',
         'Cervena' => 'Červená',
@@ -41,6 +47,9 @@ final class JediPresenter extends BasePresenter
         $this->passwords = new Passwords();
     }
 
+    /*
+     * Zobrazení tabulky všech Jedi
+     */
     public function renderDefault()
     {
         $this->checkUserLoggedIn();
@@ -50,6 +59,9 @@ final class JediPresenter extends BasePresenter
         $this->template->requests = $request;
     }
 
+    /*
+     * Zobrazení profilu jednotlivých Jedi
+     */
     public function renderShow($jedi_id)
     {
         $this->checkUserLoggedIn();
@@ -76,6 +88,9 @@ final class JediPresenter extends BasePresenter
         $this->template->flotila = $flotila;
     }    
 
+    /*
+     * Formulář pro registraci nebo úpravu Jedi
+     */
     protected function createComponentRegisterForm()
     {
         $form = new Form;
@@ -124,6 +139,9 @@ final class JediPresenter extends BasePresenter
         return $form;
     }
 
+    /*
+     * Callback při submitu register formu, zahashuje heslo a vloží všechna data do databáze
+     */
     public function registerFormSucceeded($form, $values)
     {
         $values = $form->getValues();
@@ -178,9 +196,12 @@ final class JediPresenter extends BasePresenter
         }
     }
 
+    /*
+     * Při editaci Jedi vloží do formu hodnoty z databáze
+     */
     public function actionEdit($jedi_id)
     {
-        $this->checkUserRole();
+        $this->checkUserRoleAndId($jedi_id);
         $jedi = $this->database->fetch('SELECT * FROM Jedi WHERE jedi_id = ?', $jedi_id);
 
         if(!$jedi)
@@ -217,6 +238,9 @@ final class JediPresenter extends BasePresenter
         $this->checkUserRole();
     }
 
+    /*
+     * Obstarává odstranění Jedi
+     */
     public function actionDelete($jedi_id)
     {
         $this->checkUserRole();

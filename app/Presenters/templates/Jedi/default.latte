@@ -2,7 +2,7 @@
 <div class="botnav">
     {if $user->isInRole('Palpatine')}<a n:href="Jedi:register">Zaregistrovat nového Jedi</a>{/if}
 </div>
-{form searchForm}
+{form searchForm style => "margin-top: 10px"}
     {label jedi style => "color:#FFF"}
     {input jedi}
     {input odeslat}

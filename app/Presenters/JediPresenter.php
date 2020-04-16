@@ -289,12 +289,10 @@ final class JediPresenter extends BasePresenter
         catch (Nette\Database\DriverException $exception)
         {
             $this->flashMessage('Chyba při mazání Jedi', 'error');
-            $this->redirect('Jedi:');
         }
         catch (Nette\Database\ConstraintViolationException $exception)
         {
-            $this->flashMessage('Chyba při mazání Jedi', 'error');
-            $this->redirect('Jedi:');
+            $this->flashMessage('Nelze smazat Jedi, pravděpodobně je velitelem nějaké flotily', 'error');
         }
     }
 }

@@ -6,6 +6,20 @@
 <tr>
 	<th>ID</th>
 	<th>Název</th>
-    <th>Datum narození</th>
-    <th>Rasa</th>
+    <th>Počet planet</th>
+    <th>Počet hvězd</th>
 </tr>
+{foreach $planetarni_systemy as $planetarni_system}
+    <tr>
+        <td>{$planetarni_system->ID}</td>
+        <td>{$planetarni_system->NAZEV}</td>
+        <td>{$planetarni_system->POCET_PLANET}</td>
+        <td>{$planetarni_system->POCET_HVEZD}</td>
+        <td><a style="color:#FFF" n:href="Planety: $planetarni_system->ID">Zobrazit planety</a></td>
+        <td><a style="color:#FFF" n:href="Hvezdy: $planetarni_system->ID">Zobrazit hvězdy</a></td>
+        {if $user->isInRole('Palpatine')}
+            <td><a style="color:#FFF" n:href="PlanetarniSystem:edit $planetarni_system->ID">Editovat systém</a></td>
+            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetarní systém?');" n:href="PlanetarniSystem:delete $planetarni_system->ID">Smazat systém</a></td>
+        {/if}
+    </tr>
+{/foreach}

@@ -1,0 +1,22 @@
+{block content}
+<h1>{$system->NAZEV}</h1>
+<div class="botnav">
+    {if $user->isInRole('Palpatine')}<a n:href="Hvezdy:register">Zadat novou hvězdu</a>{/if}
+</div>
+<table class="info">
+<tr>
+	<th>ID</th>
+	<th>Název</th>
+    <th>Typ</th>
+</tr>
+{foreach $hvezdy as $hvezda}
+    <tr>
+        <td>{$hvezda->HVEZDA_ID}</td>
+        <td>{$hvezda->NAZEV}</td>
+        <td>{$hvezda->TYP}</td>
+        {if $user->isInRole('Palpatine')}
+            <td><a style="color:#FFF" n:href="Hvezdy:edit $hvezda->HVEZDA_ID, $hvezda->SYSTEM_ID">Editovat hvězdu</a></td>
+            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetarní systém?');" n:href="Hvezdy:delete $hvezda->HVEZDA_ID, $hvezda->SYSTEM_ID">Smazat hvězdu</a></td>
+        {/if}
+    </tr>
+{/foreach}

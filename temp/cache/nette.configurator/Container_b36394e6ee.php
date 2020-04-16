@@ -14,6 +14,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 			'application.1' => true,
 			'application.10' => true,
 			'application.11' => true,
+			'application.12' => true,
+			'application.13' => true,
 			'application.2' => true,
 			'application.3' => true,
 			'application.4' => true,
@@ -82,6 +84,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Countable' => [2 => ['routing.router']],
@@ -107,6 +111,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\Application\UI\Control' => [
@@ -119,6 +125,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\Application\UI\Component' => [
@@ -131,6 +139,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\ComponentModel\Container' => [
@@ -143,6 +153,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\ComponentModel\Component' => [
@@ -155,6 +167,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\Application\IPresenter' => [
@@ -170,6 +184,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.9',
 				'application.10',
 				'application.11',
+				'application.12',
+				'application.13',
 			],
 		],
 		'Nette\Application\UI\IRenderable' => [
@@ -182,6 +198,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\Application\UI\IStatePersistent' => [
@@ -194,6 +212,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\Application\UI\ISignalReceiver' => [
@@ -206,6 +226,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\ComponentModel\IContainer' => [
@@ -218,6 +240,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'Nette\ComponentModel\IComponent' => [
@@ -230,6 +254,8 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'App\Presenters\BasePresenter' => [
@@ -241,18 +267,22 @@ class Container_b36394e6ee extends Nette\DI\Container
 				'application.7',
 				'application.8',
 				'application.9',
+				'application.10',
+				'application.11',
 			],
 		],
 		'App\Presenters\Error4xxPresenter' => [2 => ['application.2']],
 		'App\Presenters\ErrorPresenter' => [2 => ['application.3']],
 		'App\Presenters\FlotilaPresenter' => [2 => ['application.4']],
 		'App\Presenters\HomepagePresenter' => [2 => ['application.5']],
-		'App\Presenters\JediPresenter' => [2 => ['application.6']],
-		'App\Presenters\LodePresenter' => [2 => ['application.7']],
-		'App\Presenters\PlanetarniSystemPresenter' => [2 => ['application.8']],
-		'App\Presenters\SignPresenter' => [2 => ['application.9']],
-		'NetteModule\ErrorPresenter' => [2 => ['application.10']],
-		'NetteModule\MicroPresenter' => [2 => ['application.11']],
+		'App\Presenters\HvezdyPresenter' => [2 => ['application.6']],
+		'App\Presenters\JediPresenter' => [2 => ['application.7']],
+		'App\Presenters\LodePresenter' => [2 => ['application.8']],
+		'App\Presenters\PlanetarniSystemPresenter' => [2 => ['application.9']],
+		'App\Presenters\PlanetyPresenter' => [2 => ['application.10']],
+		'App\Presenters\SignPresenter' => [2 => ['application.11']],
+		'NetteModule\ErrorPresenter' => [2 => ['application.12']],
+		'NetteModule\MicroPresenter' => [2 => ['application.13']],
 	];
 
 
@@ -289,13 +319,49 @@ class Container_b36394e6ee extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__10(): NetteModule\ErrorPresenter
+	public function createServiceApplication__10(): App\Presenters\PlanetyPresenter
+	{
+		$service = new App\Presenters\PlanetyPresenter($this->getService('database.default.connection'));
+		$service->injectPrimary(
+			$this,
+			$this->getService('application.presenterFactory'),
+			$this->getService('routing.router'),
+			$this->getService('http.request'),
+			$this->getService('http.response'),
+			$this->getService('session.session'),
+			$this->getService('security.user'),
+			$this->getService('latte.templateFactory')
+		);
+		$service->invalidLinkMode = 5;
+		return $service;
+	}
+
+
+	public function createServiceApplication__11(): App\Presenters\SignPresenter
+	{
+		$service = new App\Presenters\SignPresenter($this->getService('database.default.connection'));
+		$service->injectPrimary(
+			$this,
+			$this->getService('application.presenterFactory'),
+			$this->getService('routing.router'),
+			$this->getService('http.request'),
+			$this->getService('http.response'),
+			$this->getService('session.session'),
+			$this->getService('security.user'),
+			$this->getService('latte.templateFactory')
+		);
+		$service->invalidLinkMode = 5;
+		return $service;
+	}
+
+
+	public function createServiceApplication__12(): NetteModule\ErrorPresenter
 	{
 		return new NetteModule\ErrorPresenter($this->getService('tracy.logger'));
 	}
 
 
-	public function createServiceApplication__11(): NetteModule\MicroPresenter
+	public function createServiceApplication__13(): NetteModule\MicroPresenter
 	{
 		return new NetteModule\MicroPresenter($this, $this->getService('http.request'), $this->getService('routing.router'));
 	}
@@ -361,7 +427,25 @@ class Container_b36394e6ee extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__6(): App\Presenters\JediPresenter
+	public function createServiceApplication__6(): App\Presenters\HvezdyPresenter
+	{
+		$service = new App\Presenters\HvezdyPresenter($this->getService('database.default.connection'));
+		$service->injectPrimary(
+			$this,
+			$this->getService('application.presenterFactory'),
+			$this->getService('routing.router'),
+			$this->getService('http.request'),
+			$this->getService('http.response'),
+			$this->getService('session.session'),
+			$this->getService('security.user'),
+			$this->getService('latte.templateFactory')
+		);
+		$service->invalidLinkMode = 5;
+		return $service;
+	}
+
+
+	public function createServiceApplication__7(): App\Presenters\JediPresenter
 	{
 		$service = new App\Presenters\JediPresenter($this->getService('database.default.connection'));
 		$service->injectPrimary(
@@ -379,7 +463,7 @@ class Container_b36394e6ee extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__7(): App\Presenters\LodePresenter
+	public function createServiceApplication__8(): App\Presenters\LodePresenter
 	{
 		$service = new App\Presenters\LodePresenter($this->getService('database.default.connection'));
 		$service->injectPrimary(
@@ -397,27 +481,9 @@ class Container_b36394e6ee extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__8(): App\Presenters\PlanetarniSystemPresenter
+	public function createServiceApplication__9(): App\Presenters\PlanetarniSystemPresenter
 	{
 		$service = new App\Presenters\PlanetarniSystemPresenter($this->getService('database.default.connection'));
-		$service->injectPrimary(
-			$this,
-			$this->getService('application.presenterFactory'),
-			$this->getService('routing.router'),
-			$this->getService('http.request'),
-			$this->getService('http.response'),
-			$this->getService('session.session'),
-			$this->getService('security.user'),
-			$this->getService('latte.templateFactory')
-		);
-		$service->invalidLinkMode = 5;
-		return $service;
-	}
-
-
-	public function createServiceApplication__9(): App\Presenters\SignPresenter
-	{
-		$service = new App\Presenters\SignPresenter($this->getService('database.default.connection'));
 		$service->injectPrimary(
 			$this,
 			$this->getService('application.presenterFactory'),

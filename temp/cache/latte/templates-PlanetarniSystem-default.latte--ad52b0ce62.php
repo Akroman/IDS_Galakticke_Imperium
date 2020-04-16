@@ -26,6 +26,9 @@ class Templatead52b0ce62 extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
+		if (!$this->getReferringTemplate() || $this->getReferenceType() === "extends") {
+			if (isset($this->params['planetarni_system'])) trigger_error('Variable $planetarni_system overwritten in foreach on line 12');
+		}
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
 	}
@@ -47,9 +50,33 @@ class Templatead52b0ce62 extends Latte\Runtime\Template
 <tr>
 	<th>ID</th>
 	<th>Název</th>
-    <th>Datum narození</th>
-    <th>Rasa</th>
-</tr><?php
+    <th>Počet planet</th>
+    <th>Počet hvězd</th>
+</tr>
+<?php
+		$iterations = 0;
+		foreach ($planetarni_systemy as $planetarni_system) {
+?>
+    <tr>
+        <td><?php echo LR\Filters::escapeHtmlText($planetarni_system->ID) /* line 14 */ ?></td>
+        <td><?php echo LR\Filters::escapeHtmlText($planetarni_system->NAZEV) /* line 15 */ ?></td>
+        <td><?php echo LR\Filters::escapeHtmlText($planetarni_system->POCET_PLANET) /* line 16 */ ?></td>
+        <td><?php echo LR\Filters::escapeHtmlText($planetarni_system->POCET_HVEZD) /* line 17 */ ?></td>
+        <td><a style="color:#FFF" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Planety:", [$planetarni_system->ID])) ?>">Zobrazit planety</a></td>
+        <td><a style="color:#FFF" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Hvezdy:", [$planetarni_system->ID])) ?>">Zobrazit hvězdy</a></td>
+<?php
+			if ($user->isInRole('Palpatine')) {
+				?>            <td><a style="color:#FFF" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("PlanetarniSystem:edit", [$planetarni_system->ID])) ?>">Editovat systém</a></td>
+            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetarní systém?');" href="<?php
+				echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("PlanetarniSystem:delete", [$planetarni_system->ID])) ?>">Smazat systém</a></td>
+<?php
+			}
+?>
+    </tr>
+<?php
+			$iterations++;
+		}
+		
 	}
 
 }

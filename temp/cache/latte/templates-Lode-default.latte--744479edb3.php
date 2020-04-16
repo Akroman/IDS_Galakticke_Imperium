@@ -37,7 +37,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 	function blockContent($_args)
 	{
 		extract($_args);
-?>
+		?><h1><?php echo LR\Filters::escapeHtmlText($velitel->NAZEV) /* line 2 */ ?></h1>
 <div class="botnav">
 <?php
 		if ($user->isInRole('Palpatine') || $user->getId() == $velitel->VELITEL) {
@@ -46,7 +46,6 @@ class Template744479edb3 extends Latte\Runtime\Template
 		}
 ?>
 </div>
-<h1><?php echo LR\Filters::escapeHtmlText($velitel->NAZEV) /* line 7 */ ?></h1>
 <table class="info">
     <tr>
         <th>ID</th>

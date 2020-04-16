@@ -1,0 +1,26 @@
+{block content}
+<h1>{$system->NAZEV}</h1>
+<div class="botnav">
+    {if $user->isInRole('Palpatine')}<a n:href="Planety:register">Zadat novou planetu</a>{/if}
+</div>
+<table class="info">
+<tr>
+	<th>ID</th>
+	<th>Název</th>
+    <th>Typ</th>
+    <th>Vzdálenost od slunce</th>
+    <th>Počet obyvatel</th>
+</tr>
+{foreach $planety as $planeta}
+    <tr>
+        <td>{$planeta->PLANETA_ID}</td>
+        <td>{$planeta->NAZEV}</td>
+        <td>{$planeta->TYP}</td>
+        <td>{$planeta->VZDALENOST_SLUNCE}</td>
+        <td>{$planeta->POCET_OBYVATEL}</td>
+        {if $user->isInRole('Palpatine')}
+            <td><a style="color:#FFF" n:href="Planety:edit $planeta->PLANETA_ID, $planeta->SYSTEM_ID">Editovat planetu</a></td>
+            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetarní systém?');" n:href="Planety:delete $planeta->PLANETA_ID, $planeta->SYSTEM_ID">Smazat planetu</a></td>
+        {/if}
+    </tr>
+{/foreach}

@@ -48,7 +48,7 @@ class Templatebb7458ecef extends Latte\Runtime\Template
 </div>
 <?php
 		/* line 5 */
-		echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $this->global->formsStack[] = $this->global->uiControl["searchForm"], []);
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $this->global->formsStack[] = $this->global->uiControl["searchForm"], ['style' => "margin-top: 10px"]);
 ?>
 
     <?php if ($_label = end($this->global->formsStack)["jedi"]->getLabel()) echo $_label->addAttributes(['style' => "color:#FFF"]) ?>

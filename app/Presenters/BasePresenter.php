@@ -50,6 +50,11 @@ class BasePresenter extends Presenter
         return $this->database->fetchPairs('SELECT jedi_id, jmeno || \' \' || prijmeni AS CELE_JMENO FROM Jedi');
     }
 
+    protected function getPairsSystemIdNazev()
+    {
+        return $this->database->fetchPairs('SELECT system_id, nazev FROM Planetarni_system');
+    }
+
     /*
      * Zkontroluje, zda je uživatel v roli Palpatine, jinak ho přesměruje na hlavní stranu
      */

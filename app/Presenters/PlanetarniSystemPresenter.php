@@ -78,6 +78,35 @@ final class PlanetarniSystemPresenter extends BasePresenter
         }
     }
 
+    protected function createComponentSearchForm()
+    {
+        $form = new Form;
+
+        $form->addText('system', 'Vyhledat planetární systém podle ID:');
+
+        $form->addSubmit('odeslat', 'Vyhledat');
+
+        $form->onSuccess[] = [$this, 'searchFormSucceeded'];
+
+        return $form;
+    }
+
+    public function searchFormSucceeded($form, $values)
+    {
+        $values = $form->getValues();
+
+        $system = $this->database->fetch('SELECT system_id FROM Planetarni_system WHERE system_id = ?', $values->system);
+
+        if(!$system)
+        {
+            $this->flashMessage('Planetární systém nenalezen', 'error');
+        }
+        else
+        {
+            $this->redirect('PlanetarniSystem:edit', $values->system);
+        }
+    }
+
     public function actionRegister()
     {
         $this->checkUserRole();
@@ -95,7 +124,8 @@ final class PlanetarniSystemPresenter extends BasePresenter
             $this->redirect('PlanetarniSystem:');
         }
 
-
+        $this->template->nazev = $system->NAZEV;
+        $this->template->system = $system_id;
     }
 
     public function actionDelete($system_id)

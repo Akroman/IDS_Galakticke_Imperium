@@ -83,35 +83,38 @@ class Templatebff606f2cf extends Latte\Runtime\Template
 
 	<td><label><?php echo LR\Filters::escapeHtmlText($planeta->NAZEV) /* line 36 */ ?></label></td>
 </tr>
-
-<tr>
-	<th><label>Flotila:</label></th>
-
-	<td><label><?php echo LR\Filters::escapeHtmlText($flotila->NAZEV) /* line 42 */ ?></label></td>
-</tr>
-
+<?php
+		if (isset($flotila->NAZEV)) {
+?>
+	<tr>
+		<th><label>Flotila:</label></th>
+		<td><label><?php echo LR\Filters::escapeHtmlText($flotila->NAZEV) /* line 41 */ ?></label></td>
+	</tr>
+<?php
+		}
+?>
 <tr>
 	<th><label>Rasa:</label></th>
 
-	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->RASA) /* line 48 */ ?></label></td>
+	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->RASA) /* line 47 */ ?></label></td>
 </tr>
 
 <tr>
 	<th><label>Množství midichlorianů:</label></th>
 
-	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->MNOZSTVI_CHLORIANU) /* line 54 */ ?></label></td>
+	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->MNOZSTVI_CHLORIANU) /* line 53 */ ?></label></td>
 </tr>
 
 <tr>
 	<th><label>Barva meče:</label></th>
 
-	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->BARVA_MECE) /* line 60 */ ?></label></td>
+	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->BARVA_MECE) /* line 59 */ ?></label></td>
 </tr>
 
 <tr>
 	<th><label>Datum narození:</label></label></th>
 
-	<td><label><?php echo LR\Filters::escapeHtmlText($narozeni->NAROZENI) /* line 66 */ ?></label></td>
+	<td><label><?php echo LR\Filters::escapeHtmlText($narozeni->NAROZENI) /* line 65 */ ?></label></td>
 </tr>
 
 <tr>
@@ -130,7 +133,7 @@ class Templatebff606f2cf extends Latte\Runtime\Template
 <tr>
 	<th><label>Oprávnění Jedi:</label></th>
 
-	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->OPRAVNENI) /* line 78 */ ?></label></td>
+	<td><label><?php echo LR\Filters::escapeHtmlText($jedi->OPRAVNENI) /* line 77 */ ?></label></td>
 </tr>
 
 </tbody></table><?php

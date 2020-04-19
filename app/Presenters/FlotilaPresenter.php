@@ -69,9 +69,7 @@ final class FlotilaPresenter extends BasePresenter
         $planety[''] = '- Vyberte planetu -';
         $planety = array_merge($planety, $this->getPairsPlanetIdNazev());
 
-        $form->addInteger('flotila_id', 'ID:')
-             ->setRequired('Prosím zadejte ID flotily')
-             ->addRule(Form::MIN, 'Zvolte kladné ID prosím', 1);;
+        $form->addHidden('flotila_id');
 
         $form->addText('nazev', 'Název:')
              ->setRequired('Prosím zvolte název flotily');
@@ -103,8 +101,8 @@ final class FlotilaPresenter extends BasePresenter
         {
             try
             {
-                $this->database->query('INSERT INTO Flotila (flotila_id, planeta_id, velitel_id, nazev, pocet_clenu)
-                VALUES (?, ?, ?, ?, ?)', $values->flotila_id, $values->planeta, $values->velitel, $values->nazev, $values->clenove);
+                $this->database->query('INSERT INTO Flotila (planeta_id, velitel_id, nazev, pocet_clenu)
+                VALUES (?, ?, ?, ?)', $values->planeta, $values->velitel, $values->nazev, $values->clenove);
                 $this->database->query('UPDATE Jedi SET flotila_id = ? WHERE jedi_id = ?', $values->flotila_id, $values->velitel);
 
                 $this->flashMessage('Flotila úspěšně vytvořena', 'success');
@@ -112,11 +110,11 @@ final class FlotilaPresenter extends BasePresenter
             }
             catch (Nette\Database\ConstraintViolationException $exception)
             {
-                $this->flashMessage('Chyba při úkladání flotily', 'error');
+                $this->flashMessage('Chyba při ukladání flotily, název je pravděpodobně zabraný nebo zadný velitel již velí některé flotile', 'error');
             }
             catch (Nette\Database\DriverException $exception)
             {
-                $this->flashMessage('Chyba při úkladání flotily', 'error');
+                $this->flashMessage('Chyba při ukladání flotily', 'error');
             }
         }
         else
@@ -132,11 +130,11 @@ final class FlotilaPresenter extends BasePresenter
             }
             catch (Nette\Database\ConstraintViolationException $exception)
             {
-                $this->flashMessage('Chyba při úkladání flotily', 'error');
+                $this->flashMessage('Chyba při ukladání flotily, název je pravděpodobně zabraný nebo zadný velitel již velí některé flotile', 'error');
             }
             catch (Nette\Database\DriverException $exception)
             {
-                $this->flashMessage('Chyba při úkladání flotily', 'error');
+                $this->flashMessage('Chyba při ukladání flotily', 'error');
             }
         }
     }
@@ -158,6 +156,35 @@ final class FlotilaPresenter extends BasePresenter
         $form->onSuccess[] = [$this, 'deleteFormSucceeded'];
 
         return $form;
+    }
+
+    protected function createComponentSearchForm()
+    {
+        $form = new Form;
+
+        $form->addText('flotila', 'Vyhledat flotilu podle ID:');
+
+        $form->addSubmit('odeslat', 'Vyhledat');
+
+        $form->onSuccess[] = [$this, 'searchFormSucceeded'];
+
+        return $form;
+    }
+
+    public function searchFormSucceeded($form, $values)
+    {
+        $values = $form->getValues();
+
+        $flotila = $this->database->fetch('SELECT flotila_id FROM Flotila WHERE flotila_id = ?', $values->flotila);
+
+        if(!$flotila)
+        {
+            $this->flashMessage('Flotila nenalezena', 'error');
+        }
+        else
+        {
+            $this->redirect('Flotila:show', $values->flotila);
+        }
     }
 
     /*
@@ -217,8 +244,6 @@ final class FlotilaPresenter extends BasePresenter
         {
             $this['registerForm']['velitel']->setDisabled()->setOmitted(false)->setValue($flotila->VELITEL_ID);
         }
-
-        $this['registerForm']['flotila_id']->setDisabled()->setOmitted(false)->setValue($flotila->FLOTILA_ID);
     }
 
     /*

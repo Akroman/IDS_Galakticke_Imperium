@@ -27,7 +27,7 @@ class Templatea3bbbd7855 extends Latte\Runtime\Template
 	{
 		extract($this->params);
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === "extends") {
-			if (isset($this->params['hvezda'])) trigger_error('Variable $hvezda overwritten in foreach on line 12');
+			if (isset($this->params['hvezda'])) trigger_error('Variable $hvezda overwritten in foreach on line 14');
 		}
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
@@ -39,12 +39,12 @@ class Templatea3bbbd7855 extends Latte\Runtime\Template
 		extract($_args);
 		?><h1><?php echo LR\Filters::escapeHtmlText($system->NAZEV) /* line 2 */ ?></h1>
 <div class="botnav">
-    <?php
+<?php
 		if ($user->isInRole('Palpatine')) {
-			?><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Hvezdy:register")) ?>">Zadat novou hvězdu</a><?php
+			?>        <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Hvezdy:register", [$system->SYSTEM_ID])) ?>">Zadat novou hvězdu</a>
+<?php
 		}
 ?>
-
 </div>
 <table class="info">
 <tr>
@@ -57,13 +57,13 @@ class Templatea3bbbd7855 extends Latte\Runtime\Template
 		foreach ($hvezdy as $hvezda) {
 ?>
     <tr>
-        <td><?php echo LR\Filters::escapeHtmlText($hvezda->HVEZDA_ID) /* line 14 */ ?></td>
-        <td><?php echo LR\Filters::escapeHtmlText($hvezda->NAZEV) /* line 15 */ ?></td>
-        <td><?php echo LR\Filters::escapeHtmlText($hvezda->TYP) /* line 16 */ ?></td>
+        <td><?php echo LR\Filters::escapeHtmlText($hvezda->HVEZDA_ID) /* line 16 */ ?></td>
+        <td><?php echo LR\Filters::escapeHtmlText($hvezda->NAZEV) /* line 17 */ ?></td>
+        <td><?php echo LR\Filters::escapeHtmlText($hvezda->TYP) /* line 18 */ ?></td>
 <?php
 			if ($user->isInRole('Palpatine')) {
 				?>            <td><a style="color:#FFF" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Hvezdy:edit", [$hvezda->HVEZDA_ID, $hvezda->SYSTEM_ID])) ?>">Editovat hvězdu</a></td>
-            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetarní systém?');" href="<?php
+            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat hvězdu?');" href="<?php
 				echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Hvezdy:delete", [$hvezda->HVEZDA_ID, $hvezda->SYSTEM_ID])) ?>">Smazat hvězdu</a></td>
 <?php
 			}

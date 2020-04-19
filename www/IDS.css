@@ -74,7 +74,6 @@ h1{
 .alert-error {
 	font-size: 20px;
 	text-indent: 5px;
-	width: 35%;
 	margin: 10px;
 	height: 30px;
 	text-align: left;
@@ -85,7 +84,6 @@ h1{
 .alert-success {
 	font-size: 20px;
 	text-indent: 5px;
-	width: 35%;
 	margin: 10px;
 	height: 30px;
 	text-align: left;

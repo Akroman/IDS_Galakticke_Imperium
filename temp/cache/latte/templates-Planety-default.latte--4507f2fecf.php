@@ -41,7 +41,7 @@ class Template4507f2fecf extends Latte\Runtime\Template
 <div class="botnav">
     <?php
 		if ($user->isInRole('Palpatine')) {
-			?><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Planety:register")) ?>">Zadat novou planetu</a><?php
+			?><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Planety:register", [$system->SYSTEM_ID])) ?>">Zadat novou planetu</a><?php
 		}
 ?>
 

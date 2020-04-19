@@ -1,5 +1,13 @@
 {block content}
 
-<h1 n:block=title>Editace planetárního systému</h1>
+<h1 n:block=title>Editace planetárního systému {$nazev}</h1>
+
+<div class="botnav">
+    {if $user->isInRole('Palpatine')}
+        <a n:href="PlanetarniSystem:register">Evidovat nový planetární systém</a>
+        <a n:href="Planety:register $system">Zadat novou planetu</a>
+        <a n:href="Hvezdy:register $system">Zadat novou hvězdu</a>
+    {/if}
+</div>
 
 {control registerForm}

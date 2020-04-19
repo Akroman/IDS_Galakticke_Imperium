@@ -38,9 +38,7 @@ final class LodePresenter extends BasePresenter
     {
         $form = new Form;
 
-        $form->addInteger('lod_id', 'ID:')
-             ->setRequired('Prosím zvolte ID lodi')
-             ->addRule(Form::MIN, 'Zvolte kladné ID prosím', 1);
+        $form->addHidden('lod_id');
 
         $form->addSelect('flotila', 'Flotila:', $this->getPairsFlotilaIdNazev())
              ->setRequired('Prosím zvolte flotilu, do které bude loď spadat');
@@ -95,19 +93,19 @@ final class LodePresenter extends BasePresenter
           {
                try
                {
-                    $this->database->query('INSERT INTO Vesmirna_lod (lod_id, flotila_id, planeta_id, poskozeni, stity, typ, stav_motoru,
-                    kapacita, turety) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', $values->lod_id, $values->flotila, $values->planeta,
+                    $this->database->query('INSERT INTO Vesmirna_lod (flotila_id, planeta_id, poskozeni, stity, typ, stav_motoru,
+                    kapacita, turety) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', $values->flotila, $values->planeta,
                     $values->poskozeni, $values->stity, $values->typ, $values->motory, $values->kapacita, $values->turety);
                     $this->flashMessage('Loď úspěšně vytvořena', 'success');
                     $this->redirect('Lode:', $values->flotila);
                }
                catch (Nette\Database\ConstraintViolationException $exception)
                {
-                    $this->flashMessage('Chyba při úkladání lodě', 'error');
+                    $this->flashMessage('Chyba při ukladání lodě', 'error');
                }
                catch (Nette\Database\DriverException $exception)
                {
-                    $this->flashMessage('Chyba při úkladání lodě', 'error');
+                    $this->flashMessage('Chyba při ukladání lodě', 'error');
                }
           }
           else
@@ -122,13 +120,42 @@ final class LodePresenter extends BasePresenter
                }
                catch (Nette\Database\ConstraintViolationException $exception)
                {
-                    $this->flashMessage('Chyba při úkladání lodě', 'error');
+                    $this->flashMessage('Chyba při ukladání lodě', 'error');
                }
                catch (Nette\Database\DriverException $exception)
                {
-                    $this->flashMessage('Chyba při úkladání lodě', 'error');
+                    $this->flashMessage('Chyba při ukladání lodě', 'error');
                }
           }
+    }
+
+    protected function createComponentSearchForm()
+    {
+        $form = new Form;
+
+        $form->addText('lod', 'Vyhledat loď podle ID:');
+
+        $form->addSubmit('odeslat', 'Vyhledat');
+
+        $form->onSuccess[] = [$this, 'searchFormSucceeded'];
+
+        return $form;
+    }
+
+    public function searchFormSucceeded($form, $values)
+    {
+        $values = $form->getValues();
+
+        $lod = $this->database->fetch('SELECT lod_id FROM Vesmirna_lod WHERE lod_id = ?', $values->lod);
+
+        if(!$lod)
+        {
+            $this->flashMessage('Loď nenalezena', 'error');
+        }
+        else
+        {
+            $this->redirect('Lod:edit', $values->lod);
+        }
     }
 
     /* 
@@ -166,6 +193,7 @@ final class LodePresenter extends BasePresenter
           }
 
           $this['registerForm']->setDefaults([
+               'lod_od' => $lod->LOD_ID,
                'flotila' => $lod->FLOTILA_ID,
                'planeta' => $lod->PLANETA_ID,
                'typ' => $lod->TYP,
@@ -175,8 +203,6 @@ final class LodePresenter extends BasePresenter
                'kapacita' => $lod->KAPACITA,
                'turety' => $lod->TURETY
           ]);
-
-          $this['registerForm']['lod_id']->setDisabled()->setOmitted(false)->setDefaultValue($lod_id);
     }
 
     /*

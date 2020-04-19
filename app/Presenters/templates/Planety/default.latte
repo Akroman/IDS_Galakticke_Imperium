@@ -1,7 +1,7 @@
 {block content}
 <h1>{$system->NAZEV}</h1>
 <div class="botnav">
-    {if $user->isInRole('Palpatine')}<a n:href="Planety:register">Zadat novou planetu</a>{/if}
+    {if $user->isInRole('Palpatine')}<a n:href="Planety:register $system->SYSTEM_ID">Zadat novou planetu</a>{/if}
 </div>
 <table class="info">
 <tr>
@@ -20,7 +20,7 @@
         <td>{$planeta->POCET_OBYVATEL}</td>
         {if $user->isInRole('Palpatine')}
             <td><a style="color:#FFF" n:href="Planety:edit $planeta->PLANETA_ID, $planeta->SYSTEM_ID">Editovat planetu</a></td>
-            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetarní systém?');" n:href="Planety:delete $planeta->PLANETA_ID, $planeta->SYSTEM_ID">Smazat planetu</a></td>
+            <td><a style="color:#FFF" onclick="return confirm('Opravdu si přejete smazat planetu?');" n:href="Planety:delete $planeta->PLANETA_ID, $planeta->SYSTEM_ID">Smazat planetu</a></td>
         {/if}
     </tr>
 {/foreach}

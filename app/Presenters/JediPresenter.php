@@ -130,9 +130,7 @@ final class JediPresenter extends BasePresenter
     {
         $form = new Form;
 
-        $form->addInteger('jedi_id', 'ID Jedi:')
-             ->setRequired('Prosím zadejte ID Jedi')
-             ->addRule(Form::MIN, 'Zvolte kladné ID prosím', 1);
+        $form->addHidden('jedi_id');
 
         $form->addText('jmeno', 'Jméno:')
              ->setRequired('Prosím zadejte jméno Jedi');
@@ -186,10 +184,10 @@ final class JediPresenter extends BasePresenter
         {
             try
             {
-                $this->database->query('INSERT INTO Jedi (jedi_id, planeta_id, flotila_id, jmeno, prijmeni, rasa,
+                $this->database->query('INSERT INTO Jedi (planeta_id, flotila_id, jmeno, prijmeni, rasa,
                 mnozstvi_chlorianu, barva_mece, dat_narozeni, je_padawan, username, pass, opravneni)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-                intval($values->jedi_id), $values->planeta_id, $values->flotila_id, $values->jmeno, $values->prijmeni, $values->rasa, 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+                $values->planeta_id, $values->flotila_id, $values->jmeno, $values->prijmeni, $values->rasa, 
                 intval($values->midichlorian), $values->barva_mece, $values->narozeni, $values->padawan, $values->username,
                 $values->pass, $values->opravneni
                 );
@@ -264,8 +262,6 @@ final class JediPresenter extends BasePresenter
             'username' => $jedi->USERNAME,
             'opravneni' => $jedi->OPRAVNENI
             ]);
-
-        $this['registerForm']['jedi_id']->setDisabled()->setOmitted(false)->setValue($jedi->JEDI_ID);
     }
 
     public function actionRegister()

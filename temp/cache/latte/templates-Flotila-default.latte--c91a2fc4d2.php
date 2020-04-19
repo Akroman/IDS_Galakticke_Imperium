@@ -27,7 +27,7 @@ class Templatec91a2fc4d2 extends Latte\Runtime\Template
 	{
 		extract($this->params);
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === "extends") {
-			if (isset($this->params['flotila'])) trigger_error('Variable $flotila overwritten in foreach on line 15');
+			if (isset($this->params['flotila'])) trigger_error('Variable $flotila overwritten in foreach on line 20');
 		}
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
@@ -47,6 +47,21 @@ class Templatec91a2fc4d2 extends Latte\Runtime\Template
 		}
 ?>
 </div>
+<?php
+		/* line 8 */
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $this->global->formsStack[] = $this->global->uiControl["searchForm"], ['style' => "margin-top: 10px"]);
+?>
+
+    <?php if ($_label = end($this->global->formsStack)["flotila"]->getLabel()) echo $_label->addAttributes(['style' => "color:#FFF"]) ?>
+
+    <?php echo end($this->global->formsStack)["flotila"]->getControl() /* line 10 */ ?>
+
+    <?php echo end($this->global->formsStack)["odeslat"]->getControl() /* line 11 */ ?>
+
+<?php
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd(array_pop($this->global->formsStack));
+?>
+
 <table class="info">
     <tr>
         <th>ID</th>
@@ -59,10 +74,10 @@ class Templatec91a2fc4d2 extends Latte\Runtime\Template
 		foreach ($flotily as $flotila) {
 ?>
         <tr>
-            <td><?php echo LR\Filters::escapeHtmlText($flotila->FLOTILA_ID) /* line 17 */ ?></td>
-            <td><?php echo LR\Filters::escapeHtmlText($flotila->NAZEV) /* line 18 */ ?></td>
-            <td><?php echo LR\Filters::escapeHtmlText($flotila->JMENO) /* line 19 */ ?> <?php echo LR\Filters::escapeHtmlText($flotila->PRIJMENI) /* line 19 */ ?></td>
-            <td><?php echo LR\Filters::escapeHtmlText($flotila->POCET_CLENU) /* line 20 */ ?></td>
+            <td><?php echo LR\Filters::escapeHtmlText($flotila->FLOTILA_ID) /* line 22 */ ?></td>
+            <td><?php echo LR\Filters::escapeHtmlText($flotila->NAZEV) /* line 23 */ ?></td>
+            <td><?php echo LR\Filters::escapeHtmlText($flotila->JMENO) /* line 24 */ ?> <?php echo LR\Filters::escapeHtmlText($flotila->PRIJMENI) /* line 24 */ ?></td>
+            <td><?php echo LR\Filters::escapeHtmlText($flotila->POCET_CLENU) /* line 25 */ ?></td>
             <td><a style="color:#FFF" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("show", [$flotila->FLOTILA_ID])) ?>">Detail flotily</a></td>
 <?php
 			if ($user->isInRole('Palpatine')) {

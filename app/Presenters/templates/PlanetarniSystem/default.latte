@@ -1,7 +1,16 @@
 {block content}
 <div class="botnav">
-    {if $user->isInRole('Palpatine')}<a n:href="PlanetarniSystem:register">Evidovat nový planetární systém</a>{/if}
+    {if $user->isInRole('Palpatine')}
+        <a n:href="PlanetarniSystem:register">Evidovat nový planetární systém</a>
+        <a n:href="Planety:register">Zadat novou planetu</a>
+        <a n:href="Hvezdy:register">Zadat novou hvězdu</a>
+    {/if}
 </div>
+{form searchForm style => "margin-top: 10px"}
+    {label system style => "color:#FFF"}
+    {input system}
+    {input odeslat}
+{/form}
 <table class="info">
 <tr>
 	<th>ID</th>

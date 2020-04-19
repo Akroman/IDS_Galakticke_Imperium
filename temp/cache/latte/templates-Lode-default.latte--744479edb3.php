@@ -27,7 +27,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 	{
 		extract($this->params);
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === "extends") {
-			if (isset($this->params['lod'])) trigger_error('Variable $lod overwritten in foreach on line 19');
+			if (isset($this->params['lod'])) trigger_error('Variable $lod overwritten in foreach on line 24');
 		}
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
@@ -46,6 +46,21 @@ class Template744479edb3 extends Latte\Runtime\Template
 		}
 ?>
 </div>
+<?php
+		/* line 8 */
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $this->global->formsStack[] = $this->global->uiControl["searchForm"], ['style' => "margin-top: 10px"]);
+?>
+
+    <?php if ($_label = end($this->global->formsStack)["lod"]->getLabel()) echo $_label->addAttributes(['style' => "color:#FFF"]) ?>
+
+    <?php echo end($this->global->formsStack)["lod"]->getControl() /* line 10 */ ?>
+
+    <?php echo end($this->global->formsStack)["odeslat"]->getControl() /* line 11 */ ?>
+
+<?php
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd(array_pop($this->global->formsStack));
+?>
+
 <table class="info">
     <tr>
         <th>ID</th>
@@ -62,19 +77,19 @@ class Template744479edb3 extends Latte\Runtime\Template
 		foreach ($lode as $lod) {
 ?>
         <tr>
-            <td><?php echo LR\Filters::escapeHtmlText($lod->LOD_ID) /* line 21 */ ?></td>
+            <td><?php echo LR\Filters::escapeHtmlText($lod->LOD_ID) /* line 26 */ ?></td>
             <td><?php
 			if ($lod->TYP) {
-				echo LR\Filters::escapeHtmlText($lod->TYP) /* line 22 */;
+				echo LR\Filters::escapeHtmlText($lod->TYP) /* line 27 */;
 			}
 			else {
 				?>-<?php
 			}
 ?></td>
-            <td><?php echo LR\Filters::escapeHtmlText($lod->NAZEV) /* line 23 */ ?></td>
+            <td><?php echo LR\Filters::escapeHtmlText($lod->NAZEV) /* line 28 */ ?></td>
             <td><?php
 			if ($lod->STITY) {
-				echo LR\Filters::escapeHtmlText($lod->STITY) /* line 24 */;
+				echo LR\Filters::escapeHtmlText($lod->STITY) /* line 29 */;
 			}
 			else {
 				?>-<?php
@@ -82,7 +97,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 ?></td>
             <td><?php
 			if ($lod->STAV_MOTORU) {
-				echo LR\Filters::escapeHtmlText($lod->STAV_MOTORU) /* line 25 */;
+				echo LR\Filters::escapeHtmlText($lod->STAV_MOTORU) /* line 30 */;
 			}
 			else {
 				?>-<?php
@@ -90,7 +105,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 ?></td>
             <td><?php
 			if ($lod->POSKOZENI) {
-				echo LR\Filters::escapeHtmlText($lod->POSKOZENI) /* line 26 */;
+				echo LR\Filters::escapeHtmlText($lod->POSKOZENI) /* line 31 */;
 			}
 			else {
 				?>-<?php
@@ -98,7 +113,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 ?></td>
             <td><?php
 			if ($lod->TURETY) {
-				echo LR\Filters::escapeHtmlText($lod->TURETY) /* line 27 */;
+				echo LR\Filters::escapeHtmlText($lod->TURETY) /* line 32 */;
 			}
 			else {
 				?>-<?php
@@ -106,7 +121,7 @@ class Template744479edb3 extends Latte\Runtime\Template
 ?></td>
             <td><?php
 			if ($lod->KAPACITA) {
-				echo LR\Filters::escapeHtmlText($lod->KAPACITA) /* line 28 */;
+				echo LR\Filters::escapeHtmlText($lod->KAPACITA) /* line 33 */;
 			}
 			else {
 				?>-<?php

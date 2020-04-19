@@ -35,13 +35,12 @@
 
 	<td><label>{$planeta->NAZEV}</label></td>
 </tr>
-
-<tr>
-	<th><label>Flotila:</label></th>
-
-	<td><label>{$flotila->NAZEV}</label></td>
-</tr>
-
+{ifset $flotila->NAZEV}
+	<tr>
+		<th><label>Flotila:</label></th>
+		<td><label>{$flotila->NAZEV}</label></td>
+	</tr>
+{/ifset}
 <tr>
 	<th><label>Rasa:</label></th>
 
